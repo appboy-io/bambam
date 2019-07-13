@@ -20,10 +20,7 @@ main(List<String> arguments) async {
       cancelOnError: false
     );
   });
-  
-  new Stream.periodic(Duration(seconds: 5)).listen((value) {
-    print('REPORT SUMMARY');
-  });
+
 
   Future.delayed(Duration(seconds: 20), () {
     bamRequestList.map((request) => request.closeStream());
