@@ -1,4 +1,17 @@
-A sample command-line application.
+*BamBam - Performance Tool*
+--------------
+Bam Bam! Hope you enjoy cloning and utilizing a simple performance measuring tool.
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+***How to Run It***
+-------------------
+Download the repo, and run the main.dart script
+```dart
+dart bin/main.dart
+```
+
+***Current State***
+--------------
+Currently the tool isn't robust at all. Currently you will manually have to alter the url in the stream class to get anything working. Future features coming to the repo:
+* Command line arguments for customizing run
+* Customizing test using json
+* A packing build script to run this test in a Jenkins build
