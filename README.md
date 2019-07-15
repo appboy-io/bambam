@@ -1,5 +1,6 @@
 *BamBam - Performance Tool*
 --------------
+![performance](performance.gif)
 Bam Bam! Hope you enjoy cloning and utilizing a simple performance measuring tool.
 
 ***How to Run It***
