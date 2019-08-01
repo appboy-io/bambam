@@ -1,12 +1,21 @@
 import 'dart:io';
 
+import 'package:args/args.dart';
+import 'package:bambam/argParser.dart';
 import 'package:bambam/bamRequest.dart';
 
+final CommandLineParser commandLineParser = new CommandLineParser();
+
 main(List<String> arguments) async {
+  ArgResults testParams = commandLineParser.parseArgs(arguments);
+  
+  print("DURATION FROM COMMAND LINE: ${testParams.arguments}");
+  print("Amount of arguments passed: ${testParams.options.length}");
+  
   final bamReportList = List<BamReport>();
 
-  final bamRequestList = List.generate(5, (index) {
-    return BamRequest();
+  final bamRequestList = List.generate(int.parse(testParams['users']), (index) {
+    return BamRequest(testParams['url']);
   });
 
   bamRequestList.map((request) => request.stream).forEach((stream) {
@@ -22,11 +31,11 @@ main(List<String> arguments) async {
   });
 
 
-  Future.delayed(Duration(seconds: 20), () {
+  Future.delayed(Duration(seconds: int.parse(testParams['duration'])), () {
     bamRequestList.map((request) => request.closeStream());
     generateReport(bamReportList);
     exit(0);
-  });
+  });  
 }
 
 generateReport(List<BamReport> reportList) {

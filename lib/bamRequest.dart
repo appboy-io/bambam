@@ -2,11 +2,12 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class BamRequest {
-
-  BamRequest() {
+  final String url;
+  
+  BamRequest(this.url) {
     Timer.periodic(Duration(seconds: 1), (t) async {
       final startTime = DateTime.now();
-      final response = await http.get('https://jsonplaceholder.typicode.com/todos/1'); //await http.get('https://google.com');
+      final response = await http.get(url);
       final endTime = DateTime.now();
       final report = BamReport(endTime.difference(startTime), response.statusCode);
       _controller.sink.add(report);
