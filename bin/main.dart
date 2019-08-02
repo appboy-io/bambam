@@ -9,9 +9,6 @@ final CommandLineParser commandLineParser = new CommandLineParser();
 main(List<String> arguments) async {
   ArgResults testParams = commandLineParser.parseArgs(arguments);
   
-  print("DURATION FROM COMMAND LINE: ${testParams.arguments}");
-  print("Amount of arguments passed: ${testParams.options.length}");
-  
   final bamReportList = List<BamReport>();
 
   final bamRequestList = List.generate(int.parse(testParams['users']), (index) {
