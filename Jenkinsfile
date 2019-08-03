@@ -9,6 +9,7 @@ pipeline {
 
         stage('test') {
             steps {
+                sh 'pub get'
                 sh '/usr/bin/dart bin/main.dart -d 15 -w "https://google.com" -u 5'
             }
         }
