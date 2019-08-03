@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3'} }
+    agent { docker { image 'google/dart'} }
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                sh '/usr/bin/dart --version'
             }
         }
     }
