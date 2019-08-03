@@ -10,15 +10,12 @@ ADD . /app
 
 RUN pub get --offline
 
-ENV duration 30
+ENV DURATION=30
 
-ENV url https://jsonplaceholder.typicode.com/todos/1
+ENV URL="https://jsonplaceholder.typicode.com/todos/1"
 
-ENV users 15
+ENV USERS=15
 
-ENTRYPOINT [ "ls ." ]
-#ENTRYPOINT [ "/usr/bin/dart", "main.dart" ]
+RUN echo "/usr/bin/dart bin/main.dart -d \$DURATION -w \$URL -u \$USERS" > /run_bambam.sh
 
-CMD ["-d", "${duration}", "-w", "${url}", "-u", "${users}"]
-
-
+ENTRYPOINT [ "/bin/bash", "/run_bambam.sh"]
