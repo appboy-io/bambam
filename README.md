@@ -7,8 +7,13 @@ Bam Bam! Hope you enjoy cloning and utilizing a simple performance measuring too
 -------------------
 Download the repo, and run the main.dart script
 ```dart
-dart bin/main.dart
+dart bin/main.dart -d 200 -w https://google.com -u 15
 ```
+
+***Docker Implementation***
+---------------------------
+Currently working on a moving BamBam to a docker host. Currently if you'd like to host your own version somewhere, utilize the Dockerfile in the root of this project.
+
 
 ***Current State***
 --------------
