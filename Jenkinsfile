@@ -1,24 +1,25 @@
-pipeline {
-    agent { docker { image 'google/dart'} }
-    stages {
-        stage ('Step 0: Configure custom path') {
-            def jobPath = "/home/lain/jenkinsJobs/${env.JOB_NAME}/${env.BUILD_NUMBER}"
-        }
-        stage('build') {
-            steps {
-                ws(jobPath) {
-                    sh '/usr/bin/dart --version'
-                }
-            }
+node {
+    try {
+        stage('Checkout') {
+            checkout scm
         }
 
-        stage('test') {
-            steps {
-                ws(jobPath) {
-                    sh 'pub get'
-                    sh '/usr/bin/dart bin/main.dart -d 15 -w "https://google.com" -u 5'
-                }
-            }
+        stage('Environment') {
+            echo "Branch: ${env.BRANCH_NAME}"
+            sh 'docker -v'
+            sh 'printenv'
+        }
+
+        stage('Build Docker Image') {
+            sh 'docker build -t bambam .'
+        }
+
+        stage('Test Docker Image') {
+            sh 'docker run -e DURATION=10 --rm bambam'
+        }
+
+        stage('Remove Docker Image from local') {
+            sh 'docker rmi bambam'
         }
     }
 }
