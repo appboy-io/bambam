@@ -22,4 +22,7 @@ node {
             sh 'docker rmi bambam'
         }
     }
+    catch(err) {
+        throw err
+    }
 }
