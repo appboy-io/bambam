@@ -21,13 +21,9 @@ node {
         }
 
         stage('Push to Docker Repository') {
-            steps{
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                    }
-                }
-            }
+            docker.withRegistry('', registryCredential) {
+                dockerImage.push()
+            }    
         }
 
         stage('Remove Docker Image from local') {
