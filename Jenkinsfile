@@ -1,11 +1,9 @@
 node {
-    environment {
-        registry = "humancaching/bambam"
-        registryCredential = 'humancaching_dockerhub'
-    }
     try {
         stage('Checkout') {
             checkout scm
+            registry = "humancaching/bambam"
+            registryCredential = 'humancaching_dockerhub'
         }
 
         stage('Environment') {
