@@ -22,7 +22,7 @@ node {
 
         stage('Push to Docker Repository') {
             docker.withRegistry('', registryCredential) {
-                dockerImage.push()
+                bambamImage.push()
             }    
         }
 
