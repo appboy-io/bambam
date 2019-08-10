@@ -17,7 +17,7 @@ node {
         }
 
         stage('Test Docker Image') {
-            sh 'docker run -e DURATION=10 --rm bambam'
+            sh "docker run -e DURATION=10 --rm $registry:$BUILD_NUMBER"
         }
 
         stage('Push to Docker Repository') {
