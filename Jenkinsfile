@@ -1,4 +1,8 @@
 node {
+    environment {
+        registry = "humancaching/bambam"
+        registryCredential = 'humancaching_dockerhub'
+    }
     try {
         stage('Checkout') {
             checkout scm
@@ -11,15 +15,25 @@ node {
         }
 
         stage('Build Docker Image') {
-            sh 'docker build -t bambam .'
+            def bambamImage = docker.build registry + ":$BUILD_NUMBER"
         }
 
         stage('Test Docker Image') {
             sh 'docker run -e DURATION=10 --rm bambam'
         }
 
+        stage('Push to Docker Repository') {
+            steps{
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
         stage('Remove Docker Image from local') {
-            sh 'docker rmi bambam'
+            sh "docker rmi $registry:$BUILD_NUMBER"
         }
     }
     catch(err) {
