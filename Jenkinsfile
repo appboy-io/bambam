@@ -13,7 +13,7 @@ node {
         }
 
         stage('Build Docker Image') {
-            def bambamImage = docker.build registry + ":$BUILD_NUMBER"
+            bambamImage = docker.build registry + ":$BUILD_NUMBER"
         }
 
         stage('Test Docker Image') {
