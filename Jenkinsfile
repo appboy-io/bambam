@@ -13,21 +13,22 @@ node {
         }
 
         stage('Build Docker Image') {
-            bambamImage = docker.build registry + ":$BUILD_NUMBER"
+            bambamImage = docker.build registry
         }
 
         stage('Test Docker Image') {
-            sh "docker run -e DURATION=10 --rm $registry:$BUILD_NUMBER"
+            sh "docker run -e DURATION=10 --rm $registry"
         }
 
         stage('Push to Docker Repository') {
             docker.withRegistry('', registryCredential) {
-                bambamImage.push()
+                bambamImage.push("$BUILD_NUMBER")
+                bambamImage.push("latest")
             }    
         }
 
         stage('Remove Docker Image from local') {
-            sh "docker rmi $registry:$BUILD_NUMBER"
+            sh "docker rmi $registry"
         }
     }
     catch(err) {
